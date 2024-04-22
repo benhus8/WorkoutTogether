@@ -1,22 +1,12 @@
 package com.hudyweas.workouttogether.screens.weather_screen
 
 
-import android.os.Build
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
-import com.hudyweas.workouttogether.API.WeatherResponse
-import com.hudyweas.workouttogether.model.Weather
-import com.hudyweas.workouttogether.model.service.AccountService
+import com.hudyweas.workouttogether.api.WeatherResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
-import io.ktor.http.ContentType.Application.Json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import java.io.BufferedReader
-import java.net.HttpURLConnection
-import java.net.URL
 import javax.inject.Inject
 
 class WeatherService @Inject constructor(private val httpClient: HttpClient) {
@@ -36,8 +26,8 @@ class WeatherService @Inject constructor(private val httpClient: HttpClient) {
         // use Gson
         val gson = Gson()
         val weatherResponse = gson.fromJson(responseString, WeatherResponse::class.java)
-        println(weatherResponse.location.name)
-        println(weatherResponse.current.temp_c)
+        println(weatherResponse.location?.name)
+        println(weatherResponse.current?.temp_c)
         return@withContext weatherResponse
     }
 }

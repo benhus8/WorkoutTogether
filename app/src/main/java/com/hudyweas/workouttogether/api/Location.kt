@@ -1,4 +1,4 @@
-package com.hudyweas.workouttogether.API
+package com.hudyweas.workouttogether.api
 
 import kotlinx.serialization.Serializable
 

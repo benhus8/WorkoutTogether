@@ -3,8 +3,7 @@ package com.hudyweas.workouttogether.screens.weather_screen
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.hudyweas.workouttogether.API.WeatherResponse
-import com.hudyweas.workouttogether.model.Weather
+import com.hudyweas.workouttogether.api.WeatherResponse
 import com.hudyweas.workouttogether.model.service.LogService
 import com.hudyweas.workouttogether.screens.WorkoutTogetherViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

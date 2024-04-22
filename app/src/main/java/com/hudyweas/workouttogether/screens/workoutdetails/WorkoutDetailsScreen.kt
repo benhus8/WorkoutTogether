@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.compose.AppTheme
 import com.hudyweas.workouttogether.R
+import com.hudyweas.workouttogether.api.WeatherResponse
 import com.hudyweas.workouttogether.common.composable.ActionToolbar
 import com.hudyweas.workouttogether.common.composable.RegularCardEditor
 import com.hudyweas.workouttogether.common.ext.card
@@ -29,16 +30,19 @@ fun WorkoutDetailsScreen(
     viewModel: WorkoutDetailsViewModel = hiltViewModel()
 ){
     val workout by viewModel.workout
+    val weatherResponse by viewModel.weatherResponse
 
     WorkoutDetailsScreenContent(
-        workout = workout
+        workout = workout,
+        weatherResponse = weatherResponse
     )
 }
 
 @Composable
 fun WorkoutDetailsScreenContent(
     modifier: Modifier = Modifier,
-    workout: Workout
+    workout: Workout,
+    weatherResponse: WeatherResponse
 ){
     Column(
         modifier = modifier
@@ -59,22 +63,28 @@ fun WorkoutDetailsScreenContent(
         RegularCardEditor(R.string.description, R.drawable.ic_description, workout.description, Modifier.card(), {})
         RegularCardEditor(R.string.date, R.drawable.ic_calendar, workout.date, Modifier.card(), {})
         RegularCardEditor(R.string.time, R.drawable.ic_clock, workout.time, Modifier.card(), {})
+        RegularCardEditor(R.string.time, R.drawable.ic_clock, weatherResponse.current?.temp_c.toString(), Modifier.card(), {})
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewWorkoutDetailsScreen(){
-    val workout = Workout(
-        title = "Workout title",
-        description = "Workout description",
-        date = "Mon, 1 Jan 2022",
-        time = "12:00",
-    )
-
-    AppTheme {
-        WorkoutDetailsScreenContent(
-            workout = workout
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewWorkoutDetailsScreen(){
+//    val workout = Workout(
+//        title = "Workout title",
+//        description = "Workout description",
+//        date = "Mon, 1 Jan 2022",
+//        time = "12:00",
+//    )
+//
+//    val weatherResponse = WeatherResponse(
+//        null, null
+//    )
+//
+//    AppTheme {
+//        WorkoutDetailsScreenContent(
+//            workout = workout,
+//            weatherResponse = weatherResponse
+//        )
+//    }
+//}

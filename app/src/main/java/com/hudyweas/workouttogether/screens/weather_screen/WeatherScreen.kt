@@ -1,8 +1,10 @@
 package com.hudyweas.workouttogether.screens.weather_screen
 
-import android.os.Build
+
+import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -20,19 +21,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
-
-
+import com.google.type.LatLng
 import kotlinx.coroutines.launch
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
-
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus
 import org.osmdroid.views.overlay.MapEventsOverlay
-import org.osmdroid.views.overlay.MinimapOverlay
 import org.osmdroid.views.overlay.OverlayItem
+import java.io.IOException
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel = hiltViewModel()) {
@@ -134,6 +133,10 @@ fun SmallOsmdroidMapView() {
     val mapView = MapView(context)
     mapView.isClickable = true
 
+    val location = getLocationFromAddress(context, "Poznań, Wierzbięcice 45, Polska")
+    println(location?.latitude)
+    println(location?.longitude)
+
     // Initial point in London
     items.add(OverlayItem("Title", "Description", GeoPoint(51.5074, -0.1278)))
 
@@ -199,6 +202,27 @@ fun SmallOsmdroidMapView() {
             }
         )
     }
+}
+
+fun getLocationFromAddress(context: Context, strAddress: String?): LatLng? {
+    val coder = Geocoder(context)
+    val address: List<Address>?
+    var p1: LatLng? = null
+    try {
+        // May throw an IOException
+        address = coder.getFromLocationName(strAddress!!, 5)
+        if (address == null) {
+            return null
+        }
+        val location: Address = address[0]
+        p1 = LatLng.newBuilder()
+            .setLatitude(location.latitude)
+            .setLongitude(location.longitude)
+            .build()
+    } catch (ex: IOException) {
+        ex.printStackTrace()
+    }
+    return p1
 }
 
 

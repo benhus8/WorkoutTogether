@@ -7,6 +7,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("dagger.hilt.android.plugin")
     id("com.ncorti.ktfmt.gradle") version "0.10.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.10"
 }
 
 android {
@@ -15,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.hudyweas.workouttogether"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -53,6 +54,9 @@ android {
     packaging {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }
+//    packagingOptions {
+//        exclude("com/j256/ormlite/core/README.txt")
+//    }
 }
 
 ktfmt {
@@ -78,7 +82,16 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
     implementation("com.google.dagger:hilt-android:2.47")
     implementation("androidx.compose.material3:material3-android:1.2.1")
+
+    //API
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
     ksp("com.google.dagger:hilt-compiler:2.47")
+    implementation ("io.ktor:ktor-client-core:1.6.7")
+    implementation ("io.ktor:ktor-client-json:1.6.7")
+    implementation( "io.ktor:ktor-client-serialization:1.6.7")
+    implementation ("io.ktor:ktor-client-android:1.6.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+    implementation("com.google.code.gson:gson:2.8.9")
 
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
@@ -103,4 +116,9 @@ dependencies {
     implementation("com.google.maps.android:maps-compose:2.11.1")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // OSM MAPS
+    implementation ("org.osmdroid:osmdroid-android:6.1.18")
+//    implementation ("org.osmdroid:osmdroid-wms:6.1.18")
+//    implementation ("org.osmdroid:osmdroid-geopackage:6.1.18")
 }

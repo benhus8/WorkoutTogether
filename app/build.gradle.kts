@@ -54,9 +54,6 @@ android {
     packaging {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }
-//    packagingOptions {
-//        exclude("com/j256/ormlite/core/README.txt")
-//    }
 }
 
 ktfmt {
@@ -119,6 +116,4 @@ dependencies {
 
     // OSM MAPS
     implementation ("org.osmdroid:osmdroid-android:6.1.18")
-//    implementation ("org.osmdroid:osmdroid-wms:6.1.18")
-//    implementation ("org.osmdroid:osmdroid-geopackage:6.1.18")
 }

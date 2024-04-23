@@ -3,7 +3,7 @@ package com.hudyweas.workouttogether.common.static
 import com.hudyweas.workouttogether.FRIENDS_SCREEN
 import com.hudyweas.workouttogether.R
 import com.hudyweas.workouttogether.SETTINGS_SCREEN
-import com.hudyweas.workouttogether.WEATHER_SCREEN
+import com.hudyweas.workouttogether.WORKOUT_MAP
 import com.hudyweas.workouttogether.model.NavigationItem
 
 val navigationItemsList = listOf<NavigationItem>(
@@ -26,9 +26,9 @@ val navigationItemsList = listOf<NavigationItem>(
         icon = R.drawable.ic_check
     ),
     NavigationItem(
-        title = "Weather",
-        description = "Chek the weather",
-        itemId = WEATHER_SCREEN,
-        icon = R.drawable.ic_check
+        title = "Workout map",
+        description = "Check workout map",
+        itemId = WORKOUT_MAP,
+        icon = R.drawable.map_marker_outline
     )
 )

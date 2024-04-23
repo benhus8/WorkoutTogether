@@ -12,7 +12,7 @@ const val WORKOUT_DETAILS_SCREEN = "WorkoutDetailsScreen"
 
 const val FRIENDS_SCREEN = "FriendsScreen"
 
-const val WEATHER_SCREEN = "WeatherScreen"
+const val WORKOUT_MAP = "WorkoutMap"
 
 const val TASK_ID = "workoutId"
 const val TASK_ID_ARG = "?$TASK_ID={$TASK_ID}"

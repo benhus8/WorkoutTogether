@@ -1,10 +1,8 @@
-package com.hudyweas.workouttogether.screens.weather_screen
+package com.hudyweas.workouttogether.model.service
 
 
-import com.google.firebase.crashlytics.internal.network.HttpResponse
 import com.google.gson.Gson
 import com.hudyweas.workouttogether.api.ForecastResponse
-import com.hudyweas.workouttogether.api.WeatherResponse
 import io.ktor.client.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.Dispatchers
@@ -15,17 +13,6 @@ import java.util.Locale
 import javax.inject.Inject
 
 class WeatherService @Inject constructor(private val httpClient: HttpClient) {
-    // https://www.weatherapi.com/my/
-    companion object {
-        const val API_KEY: String = "197b71b4469143638e770018241904"
-    }
-    suspend fun getWeather(location: String): String = withContext(Dispatchers.IO) {
-        val response: HttpResponse = httpClient.get("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Poznan/2024-04-22/2024-04-22?unitGroup=metric&include=days&key=ETLHFFUVFZGYUNGTMZJDUR4EG&contentType=json")
-        val responseBody = response.body()
-        println(responseBody)
-        return@withContext responseBody
-    }
-
     suspend fun sendGet(city:String, date:String): ForecastResponse = withContext(Dispatchers.IO) {
         val API_KEY = "ETLHFFUVFZGYUNGTMZJDUR4EG"
 
@@ -33,11 +20,10 @@ class WeatherService @Inject constructor(private val httpClient: HttpClient) {
         val formattedDate = convertDateString(date)
         val cityEn = replacePolishChars(city)
         val responseString = httpClient.get<String>("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/$cityEn/$formattedDate/$formattedDate?unitGroup=metric&include=days&key=$API_KEY&contentType=json")
-        println(responseString)
+
         // use Gson
         val gson = Gson()
         val forecastResponse = gson.fromJson(responseString, ForecastResponse::class.java)
-        println(forecastResponse)
         return@withContext forecastResponse
     }
 }

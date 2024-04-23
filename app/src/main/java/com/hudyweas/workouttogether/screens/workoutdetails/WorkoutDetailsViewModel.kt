@@ -5,13 +5,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.hudyweas.workouttogether.TASK_ID
 import com.hudyweas.workouttogether.api.ForecastResponse
-import com.hudyweas.workouttogether.api.WeatherResponse
 import com.hudyweas.workouttogether.common.ext.idFromParameter
 import com.hudyweas.workouttogether.model.Workout
 import com.hudyweas.workouttogether.model.service.LogService
 import com.hudyweas.workouttogether.model.service.StorageService
 import com.hudyweas.workouttogether.screens.WorkoutTogetherViewModel
-import com.hudyweas.workouttogether.screens.weather_screen.WeatherService
+import com.hudyweas.workouttogether.model.service.WeatherService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch

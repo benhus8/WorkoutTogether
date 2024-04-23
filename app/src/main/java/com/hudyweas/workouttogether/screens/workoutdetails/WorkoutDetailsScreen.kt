@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import com.hudyweas.workouttogether.common.ext.card
 import com.hudyweas.workouttogether.common.ext.spacer
 import com.hudyweas.workouttogether.common.ext.toolbarActions
 import com.hudyweas.workouttogether.model.Workout
+
 
 @Composable
 fun WorkoutDetailsScreen(
@@ -47,6 +49,7 @@ fun WorkoutDetailsScreenContent(
     workout: Workout,
     weatherResponse: ForecastResponse
 ) {
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -55,9 +58,15 @@ fun WorkoutDetailsScreenContent(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         ActionToolbar(
             title = R.string.workout_details,
             modifier = Modifier.toolbarActions(),
+        )
+
+        HorizontalDivider(
+            modifier = Modifier.padding(horizontal = 32.dp),
+            thickness = 1.dp
         )
 
         Spacer(modifier = Modifier.spacer())
@@ -76,7 +85,13 @@ fun WorkoutDetailsScreenContent(
 
 
         weatherResponse.days?.firstOrNull()?.let { day ->
-            Text(text = "Workout day weather forecast", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(16.dp).align(Alignment.Start))
+            Text(
+                text = "Workout day weather forecast",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.Start)
+            )
             RegularCardEditor(
                 R.string.temp,
                 R.drawable.temperature_celsius,

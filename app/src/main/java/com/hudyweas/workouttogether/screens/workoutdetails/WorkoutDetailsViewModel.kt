@@ -34,7 +34,7 @@ class WorkoutDetailsViewModel @Inject constructor(
                 print("Error getting workout")
             }
             try {
-                weatherResponse.value = weatherService.sendGet(workout.value.city ?: "London", workout.value.date)
+                weatherResponse.value = weatherService.sendGet(workout.value.city, workout.value.date)
 
             } catch (e: Exception) {
                 print("Error getting weather data")

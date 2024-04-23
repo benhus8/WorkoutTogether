@@ -60,9 +60,7 @@ fun OsmdroidMapView(workouts: Flow<List<Workout>>) {
             itemsLoaded.value = true
         }
     }
-    println(items.size)
     if (itemsLoaded.value) {
-        println(items.size)
         var overlay = remember {
             ItemizedOverlayWithFocus<OverlayItem>(items, object :
                 ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
@@ -88,8 +86,10 @@ fun OsmdroidMapView(workouts: Flow<List<Workout>>) {
 
                 val mapController = mapView.controller
                 mapController.setZoom(13.0)
-
-                val startPoint = GeoPoint(52.3961918, 16.921311) // Poznan's latitude and longitude
+                var startPoint = GeoPoint(52.3961918, 16.921311)
+                if(items.size > 0) {
+                    startPoint =  GeoPoint(items.get(0).point.latitude, items.get(0).point.longitude)
+                }
                 mapController.setCenter(startPoint)
                 mapView
             }
@@ -107,8 +107,10 @@ fun getLocationFromWorkout(context: Context, strAddress: String?): LatLng? {
         if (address == null) {
             return null
         }
+        if(address.isEmpty()){
+            return null
+        }
         val location: Address = address[0]
-        println("Location: $location")
         p1 = LatLng.newBuilder()
             .setLatitude(location.latitude)
             .setLongitude(location.longitude)

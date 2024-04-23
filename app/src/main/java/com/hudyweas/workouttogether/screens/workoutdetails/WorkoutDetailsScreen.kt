@@ -112,10 +112,16 @@ fun WorkoutDetailsScreenContent(
             Text(
                 text = "Workout day weather forecast",
                 style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
                     .padding(16.dp)
                     .align(Alignment.Start)
             )
+            HorizontalDivider(
+                modifier = Modifier.padding(horizontal = 32.dp),
+                thickness = 1.dp
+            )
+            Spacer(modifier = Modifier.spacer())
             RegularCardEditor(
                 R.string.temp,
                 R.drawable.temperature_celsius,

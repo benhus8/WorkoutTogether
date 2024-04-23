@@ -44,7 +44,6 @@ fun WeatherScreen(viewModel: WeatherViewModel = hiltViewModel()) {
         }
     }
         Text(text ="Weather Screen")
-        Text(text = weatherState?.location?.name ?: "Loading...")
 //        OsmdroidMapView()
     SmallOsmdroidMapView()
 }

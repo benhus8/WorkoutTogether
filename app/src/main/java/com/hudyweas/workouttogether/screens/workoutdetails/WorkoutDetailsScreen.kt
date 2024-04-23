@@ -27,7 +27,17 @@ import com.hudyweas.workouttogether.common.ext.card
 import com.hudyweas.workouttogether.common.ext.spacer
 import com.hudyweas.workouttogether.common.ext.toolbarActions
 import com.hudyweas.workouttogether.model.Workout
-
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.ui.res.stringResource
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 
 @Composable
 fun WorkoutDetailsScreen(
@@ -49,6 +59,8 @@ fun WorkoutDetailsScreenContent(
     workout: Workout,
     weatherResponse: ForecastResponse
 ) {
+    val startActivityLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result -> }
+    val shareMessage = shareMessage(workout)
 
     Column(
         modifier = modifier
@@ -59,10 +71,23 @@ fun WorkoutDetailsScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+
         ActionToolbar(
-            title = R.string.workout_details,
-            modifier = Modifier.toolbarActions(),
-        )
+                title = R.string.workout_details,
+                modifier = Modifier.weight(1f),
+            action = {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, shareMessage)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivityLauncher.launch(shareIntent)
+            },
+            actionIcon = R.drawable.share_variant
+            )
+
 
         HorizontalDivider(
             modifier = Modifier.padding(horizontal = 32.dp),
@@ -82,7 +107,6 @@ fun WorkoutDetailsScreenContent(
         RegularCardEditor(R.string.time, R.drawable.ic_clock, workout.time, Modifier.card(), {})
 
         Spacer(modifier = Modifier.spacer())
-
 
         weatherResponse.days?.firstOrNull()?.let { day ->
             Text(
@@ -135,8 +159,17 @@ fun WorkoutDetailsScreenContent(
                 {}
             )
         }
-
     }
+}
+fun shareMessage(workout: Workout): String {
+    if(workout.city == "" && workout.street == "" && workout.buildingNumber == "")
+        return "Hello I will be doing a workout on ${workout.date} at ${workout.time}. Join me if you want to workout together!"
+    else if(workout.street == "" && workout.buildingNumber == "")
+        return "Hello I will be doing a workout on ${workout.date} at ${workout.time}. You can find me at ${workout.city}. Join me if you want to workout together!"
+    else if(workout.buildingNumber == "")
+        return "Hello I will be doing a workout on ${workout.date} at ${workout.time}. You can find me at ${workout.city} ${"," + workout.street}. Join me if you want to workout together!"
+    else
+        return "Hello I will be doing a workout on ${workout.date} at ${workout.time}. You can find me at ${workout.city} ${"," + workout.street} ${"," + workout.buildingNumber}. Join me if you want to workout together!"
 }
 
 @Preview(showBackground = true)

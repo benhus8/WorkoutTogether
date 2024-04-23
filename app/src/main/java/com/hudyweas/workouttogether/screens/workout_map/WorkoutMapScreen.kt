@@ -97,6 +97,7 @@ fun OsmdroidMapView(workouts: Flow<List<Workout>>) {
     }
 }
 
+
 fun getLocationFromWorkout(context: Context, strAddress: String?): LatLng? {
     val coder = Geocoder(context)
     val address: List<Address>?

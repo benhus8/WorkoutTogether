@@ -8,22 +8,10 @@ import com.hudyweas.workouttogether.model.NavigationItem
 
 val navigationItemsList = listOf<NavigationItem>(
     NavigationItem(
-        title = "Home",
-        description = "Home Screen",
-        itemId = "homeScreen",
-        icon = R.drawable.ic_check
-    ),
-    NavigationItem(
         title = "Settings",
         description = "Settings Screen",
         itemId = SETTINGS_SCREEN,
         icon = R.drawable.ic_settings
-    ),
-    NavigationItem(
-        title = "Friends",
-        description = "Friends Screen",
-        itemId = FRIENDS_SCREEN,
-        icon = R.drawable.ic_check
     ),
     NavigationItem(
         title = "Workout map",
